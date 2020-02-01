@@ -1,9 +1,10 @@
 from settings import CUR_TIMESTAMP, DATA_FOLDER
 import pandas as pd
+import json
 import re
 
 
-def parse_data(file):
+def parse_pharmacy_data(file):
     """
     Parse to Pandas DataFrame
     :param file:
@@ -42,14 +43,31 @@ def parse_data(file):
         return df
 
 
+def parse_hc_data(file):
+    with open(file, 'r', encoding='utf-8') as f:
+        text = f.read()
+        # well-formatted, parse to json and then Pandas DataFrame
+        js = json.loads(text)
+        print(js['rows'])
+        df = pd.DataFrame(js['rows'])
+        print(df)
+        # add a timestamp column
+        df['parsed_timestamp'] = CUR_TIMESTAMP
+        return df
+
+
 def write_parsed_file(df, path):
     # parse to csv
     df.to_csv(path, encoding='utf-8', index=False)
     return 0
 
 
-def run_parser(path_to_input):
-    df = parse_data(path_to_input)
-    p = DATA_FOLDER / 'parsed_{}.csv'.format(CUR_TIMESTAMP)
-    write_parsed_file(df, path=p)
-    return p
+def run_parser(path_to_phq, path_to_hc):
+    df1 = parse_pharmacy_data(path_to_phq)
+    p1 = DATA_FOLDER / 'parsed_phq_{}.csv'.format(CUR_TIMESTAMP)
+    write_parsed_file(df1, path=p1)
+    df2 = parse_hc_data(path_to_hc)
+    p2 = DATA_FOLDER / 'parsed_hc_{}.csv'.format(CUR_TIMESTAMP)
+    write_parsed_file(df2, path=p2)
+    return p1
+
