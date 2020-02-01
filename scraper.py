@@ -4,7 +4,7 @@ scraper for https://www.ssm.gov.mo/apps1/apps/phquery/phqmaskstock.aspx
 from bs4 import BeautifulSoup
 import requests
 import time
-import json
+from settings import CUR_TIMESTAMP, DATA_FOLDER
 
 
 def make_request():
@@ -27,15 +27,16 @@ def make_request():
     return requests.get('?'.join([base_url, params_url]))
 
 
-r = make_request()  # make request
-soup = BeautifulSoup(r.content, 'lxml')  # parse content
-elem = soup.find_all('p')[0]  # get the JSON data
-with open('elem.txt', 'w', encoding='utf-8') as f:
-    f.write(elem.text)
+def write_scraped_file(r, path):
+    soup = BeautifulSoup(r.content, 'lxml')  # parse content
+    elem = soup.find_all('p')[0]  # get the JSON data
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(elem.text)
+    return 0
 
-"""
-# need a series parser...
-parsed_json = parse_data(elem.text)
-print(parsed_json)
-"""
 
+def run_scraper():
+    r = make_request()  # make request
+    p = DATA_FOLDER / 'scraped_{}.txt'.format(CUR_TIMESTAMP)
+    write_scraped_file(r, path=p)
+    return p
