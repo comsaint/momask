@@ -56,18 +56,25 @@ def parse_hc_data(file):
         return df
 
 
+def parse_org_data(file):
+    return parse_hc_data(file)
+
+
 def write_parsed_file(df, path):
     # parse to csv
     df.to_csv(path, encoding='utf-8', index=False)
     return 0
 
 
-def run_parser(path_to_phq, path_to_hc):
+def run_parser(path_to_phq, path_to_hc, path_to_org):
     df1 = parse_pharmacy_data(path_to_phq)
     p1 = DATA_FOLDER / 'parsed_phq_{}.csv'.format(CUR_TIMESTAMP)
     write_parsed_file(df1, path=p1)
     df2 = parse_hc_data(path_to_hc)
     p2 = DATA_FOLDER / 'parsed_hc_{}.csv'.format(CUR_TIMESTAMP)
     write_parsed_file(df2, path=p2)
-    return p1
+    df3 = parse_org_data(path_to_org)
+    p3 = DATA_FOLDER / 'parsed_org_{}.csv'.format(CUR_TIMESTAMP)
+    write_parsed_file(df3, path=p3)
+    return p1, p2, p3
 

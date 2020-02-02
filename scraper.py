@@ -1,6 +1,7 @@
 """
 scraper for https://www.ssm.gov.mo/apps1/apps/phquery/phqmaskstock.aspx (pharmacy)
 and https://www.ssm.gov.mo/apps1/apps/phquery/maskstock/hcmaskstock.aspx (hygiene centre)
+and https://www.ssm.gov.mo/apps1/apps/phquery/maskstock/horgmaskstock.aspx (organization)
 """
 from bs4 import BeautifulSoup
 import requests
@@ -46,6 +47,25 @@ def make_request_for_health_centre():
     return requests.get('?'.join([base_url, params_url]))
 
 
+def make_request_for_org():
+    """
+
+    :return:
+    """
+    base_url = 'https://www.ssm.gov.mo/apps1/apps/phquery/maskstock/horgmaskstock.aspx'
+    params = {'f': 'GetORGMaskStock',
+              'time': int(time.time() * 1000),  # timestamp in millisecond
+              'dlimit': 0,
+              'pg': 0,
+              'dorder': 'cast(code as integer) asc',
+              'sid': '',
+              'apptype': ''
+              }
+    params_url = '&'.join(
+        '{}={}'.format(k, v) for k, v in params.items())  # too bad `requests` will urlencode the `dorder` param...
+    return requests.get('?'.join([base_url, params_url]))
+
+
 def write_scraped_file(r, path):
     soup = BeautifulSoup(r.content, 'lxml')  # parse content
     elem = soup.find_all('p')[0]  # get the JSON data
@@ -61,7 +81,10 @@ def run_scraper():
     r2 = make_request_for_health_centre()
     p2 = DATA_FOLDER / 'scraped_hc_{}.txt'.format(CUR_TIMESTAMP)
     write_scraped_file(r2, p2)
-    return p1, p2
+    r3 = make_request_for_org()
+    p3 = DATA_FOLDER / 'scraped_org_{}.txt'.format(CUR_TIMESTAMP)
+    write_scraped_file(r3, p3)
+    return p1, p2, p3
 
 
 run_scraper()
