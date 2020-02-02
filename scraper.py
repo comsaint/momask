@@ -13,14 +13,13 @@ def make_request_for_pharmacy():
     request the url to mask data of pharmacy.
     :return: requests.get() object to the url
     """
-    base_url = 'https://www.ssm.gov.mo/apps1/apps/phquery/phqmaskstock.aspx'
-    params = {'f': 'GetDataList',
+    base_url = 'https://www.ssm.gov.mo/apps1/apps/phquery/maskstock/hphqmaskstock.aspx'
+    params = {'f': 'GetPHQMaskStock',
               'time': int(time.time()*1000),  # timestamp in millisecond
               'dlimit': 0,
               'pg': 0,
               'ph': 'true',
-              'issyncmask': 'false',
-              'dorder': 'cast(code+as+integer)+asc',
+              'dorder': 'cast(code as integer) asc',
               'sid': '',
               'apptype': ''
               }
