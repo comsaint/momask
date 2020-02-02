@@ -48,9 +48,7 @@ def parse_hc_data(file):
         text = f.read()
         # well-formatted, parse to json and then Pandas DataFrame
         js = json.loads(text)
-        print(js['rows'])
         df = pd.DataFrame(js['rows'])
-        print(df)
         # add a timestamp column
         df['parsed_timestamp'] = CUR_TIMESTAMP
         return df
