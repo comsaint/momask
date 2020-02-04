@@ -87,4 +87,5 @@ def run_scraper():
     return p1, p2, p3
 
 
-run_scraper()
+if __name__ == "__main__":
+    run_scraper()

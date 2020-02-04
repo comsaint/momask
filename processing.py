@@ -63,3 +63,7 @@ def run_processor():
         info, stock = process_data(df, mode=mode)
         write_output_file(info, stock, mode=mode)
     return 0
+
+
+if __name__ == "__main__":
+    run_processor()

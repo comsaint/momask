@@ -76,3 +76,6 @@ def run_parser(path_to_phq, path_to_hc, path_to_org):
     write_parsed_file(df3, path=p3)
     return p1, p2, p3
 
+
+if __name__ == "__main__":
+    run_parser()
