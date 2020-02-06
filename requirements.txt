@@ -9,6 +9,9 @@ colorama==0.4.3
 decorator==4.4.1
 defusedxml==0.6.0
 entrypoints==0.3
+google-api-python-client==1.7.11
+google-auth==1.11.0
+google-auth-httplib2==0.0.3
 google-resumable-media==0.5.0
 googleapis-common-protos==1.51.0
 httplib2==0.17.0
@@ -62,6 +65,7 @@ terminado==0.8.3
 testpath==0.4.4
 tornado==6.0.3
 traitlets==4.3.3
+uritemplate==3.0.1
 urllib3==1.25.8
 wcwidth==0.1.8
 webencodings==0.5.1
