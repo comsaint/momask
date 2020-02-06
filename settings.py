@@ -12,5 +12,5 @@ DATA_FOLDER = ROOT_FOLDER / 'data'
 
 # Cloud
 GCP_PROJECT = 'beaming-crowbar-94213'
-CLOUD_STORAGE_BUCKET = 'gs://momask'
+CLOUD_STORAGE_BUCKET = 'momask'
 
