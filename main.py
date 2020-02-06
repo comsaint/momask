@@ -17,7 +17,7 @@ if UPLOAD_TO_CLOUD is True:
     from settings import GCP_PROJECT
     for mode in LIST_MODES:
         upload_to_gcs(project=GCP_PROJECT,
-                      src_file=DATA_FOLDER / 'stock_{}.csv'.format(mode),
+                      src_file=str((DATA_FOLDER / 'stock_{}.csv'.format(mode)).resolve()),
                       dst_bucket=CLOUD_STORAGE_BUCKET,
                       dst_blob_name='stock_{}.csv'.format(mode)
                       )
