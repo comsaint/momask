@@ -1,7 +1,7 @@
 """
 script for post-processing the parsed file `parsed_xxxxxx.csv`.
 """
-from settings import DATA_FOLDER
+from settings import DATA_FOLDER, LIST_MODES
 import pandas as pd
 
 
@@ -58,7 +58,7 @@ def write_output_file(df_info, df_stock, mode):
 
 def run_processor():
     # read and concat all files
-    for mode in ['phq', 'hc', 'org']:
+    for mode in LIST_MODES:
         df = read_parsed_file(mode=mode)
         info, stock = process_data(df, mode=mode)
         write_output_file(info, stock, mode=mode)
