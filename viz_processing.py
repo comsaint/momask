@@ -42,6 +42,10 @@ def write_to_local(df, path):
     return 0
 
 
-if __name__ == "__main__":
+def run_viz_processing():
     df = viz_processing()
     write_to_local(df, path=DATA_FOLDER / 'df.csv')
+
+
+if __name__ == "__main__":
+    run_viz_processing()
