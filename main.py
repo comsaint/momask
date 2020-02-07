@@ -2,8 +2,8 @@ from scraper import run_scraper
 from rparser import run_parser
 from processing import run_processor
 from viz_processing import run_viz_processing
-from settings import DATA_FOLDER
-from settings import UPLOAD_TO_CLOUD, CLOUD_STORAGE_BUCKET
+from settings import DATA_FOLDER, LIST_MODES
+from settings import UPLOAD_TO_CLOUD
 
 # create data folder
 DATA_FOLDER.mkdir(exist_ok=True)
@@ -17,8 +17,15 @@ df = run_viz_processing()
 if UPLOAD_TO_CLOUD is True:
     from commonfunc import upload_to_gcs
     from settings import GCP_PROJECT
+    from settings import CLOUD_STORAGE_BUCKET
     upload_to_gcs(project=GCP_PROJECT,
                   src_file=str((DATA_FOLDER / 'df.csv').resolve()),
                   dst_bucket=CLOUD_STORAGE_BUCKET,
                   dst_blob_name='df.csv'
                   )
+    for mode in LIST_MODES:
+        upload_to_gcs(project=GCP_PROJECT,
+                      src_file=str((DATA_FOLDER / 'stock_{}.csv'.format(mode)).resolve()),
+                      dst_bucket=CLOUD_STORAGE_BUCKET,
+                      dst_blob_name='stock_{}.csv'.format(mode)
+                      )
