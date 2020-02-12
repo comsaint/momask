@@ -56,15 +56,15 @@ def create_full_dataframe():
 
 
 def write_to_local(df, path):
-    df.to_csv(path, index=False, encoding='utf-8')
+    df.to_csv(path, index=False, encoding='utf-8', compression='gz')
     return 0
 
 
 def run_viz_processing():
     df = viz_processing()
     df_full = create_full_dataframe()
-    write_to_local(df, path=DATA_FOLDER / 'df.csv')
-    write_to_local(df_full, path=DATA_FOLDER / 'df_full.csv')
+    write_to_local(df, path=DATA_FOLDER / 'df.gz')
+    write_to_local(df_full, path=DATA_FOLDER / 'df_full.gz')
 
 
 if __name__ == "__main__":

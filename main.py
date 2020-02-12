@@ -19,14 +19,14 @@ if UPLOAD_TO_CLOUD is True:
     from settings import GCP_PROJECT
     from settings import CLOUD_STORAGE_BUCKET
     upload_to_gcs(project=GCP_PROJECT,
-                  src_file=str((DATA_FOLDER / 'df.csv').resolve()),
+                  src_file=str((DATA_FOLDER / 'df.gz').resolve()),
                   dst_bucket=CLOUD_STORAGE_BUCKET,
-                  dst_blob_name='df.csv'
+                  dst_blob_name='df.gz'
                   )
     upload_to_gcs(project=GCP_PROJECT,
-                  src_file=str((DATA_FOLDER / 'df_full.csv').resolve()),
+                  src_file=str((DATA_FOLDER / 'df_full.gz').resolve()),
                   dst_bucket=CLOUD_STORAGE_BUCKET,
-                  dst_blob_name='df_full.csv'
+                  dst_blob_name='df_full.gz'
                   )
     for mode in LIST_MODES:
         upload_to_gcs(project=GCP_PROJECT,
