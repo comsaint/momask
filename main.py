@@ -23,6 +23,11 @@ if UPLOAD_TO_CLOUD is True:
                   dst_bucket=CLOUD_STORAGE_BUCKET,
                   dst_blob_name='df.csv'
                   )
+    upload_to_gcs(project=GCP_PROJECT,
+                  src_file=str((DATA_FOLDER / 'df_full.csv').resolve()),
+                  dst_bucket=CLOUD_STORAGE_BUCKET,
+                  dst_blob_name='df_full.csv'
+                  )
     for mode in LIST_MODES:
         upload_to_gcs(project=GCP_PROJECT,
                       src_file=str((DATA_FOLDER / 'stock_{}.csv'.format(mode)).resolve()),
