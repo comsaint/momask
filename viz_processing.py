@@ -56,7 +56,7 @@ def create_full_dataframe():
 
 
 def write_to_local(df, path):
-    df.to_csv(path, index=False, encoding='utf-8', compression='gz')
+    df.to_csv(path, index=False, encoding='utf-8', compression='gzip')
     return 0
 
 
