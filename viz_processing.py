@@ -37,6 +37,24 @@ def viz_processing():
     return df
 
 
+def create_full_dataframe():
+    # read stock
+    lst_stocks = []
+    mapping = {'maskstock': 'tolqty_diff', 'licno': 'code'}
+    for mode in LIST_MODES:
+        __df = pd.read_csv(DATA_FOLDER / 'stock_{}.csv'.format(mode))
+        # rename columns to match
+        __df.rename(mapping, axis=1, inplace=True)
+        __df = __df.astype({'code': str})
+        lst_stocks.append(__df)
+    stock = pd.concat(lst_stocks)
+    # read info
+    info = pd.read_csv(DATA_FOLDER / 'info_all_20200203.csv')
+    # join
+    df_full = stock.merge(info, how='left', left_on='code', right_on='code')
+    return df_full
+
+
 def write_to_local(df, path):
     df.to_csv(path, index=False, encoding='utf-8')
     return 0
@@ -44,7 +62,9 @@ def write_to_local(df, path):
 
 def run_viz_processing():
     df = viz_processing()
+    df_full = create_full_dataframe()
     write_to_local(df, path=DATA_FOLDER / 'df.csv')
+    write_to_local(df_full, path=DATA_FOLDER / 'df_full.csv')
 
 
 if __name__ == "__main__":
