@@ -14,7 +14,7 @@ google-auth==1.11.0
 google-auth-httplib2==0.0.3
 google-resumable-media==0.5.0
 googleapis-common-protos==1.51.0
-httplib2==0.17.0
+httplib2==0.18.0
 idna==2.8
 importlib-metadata==1.5.0
 ipykernel==5.1.4
